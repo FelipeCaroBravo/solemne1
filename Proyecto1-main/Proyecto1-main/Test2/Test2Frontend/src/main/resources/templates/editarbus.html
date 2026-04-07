@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Editar Persona</title>
+    <title>Editar Bus</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
@@ -11,21 +12,59 @@
 
 <div class="container mt-4">
 
-    <h2>Editar Persona</h2>
+    <h2 class="mb-4">Editar Bus</h2>
 
-    <form th:action="@{/crud/persona/update}" th:object="${persona}" method="post">
-
-        <input type="hidden" th:field="*{id}" />
-
-        <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" th:field="*{nombre}" class="form-control" required>
+    <div class="card">
+        <div class="card-header bg-warning">
+            Editar datos del bus
         </div>
 
-        <button type="submit" class="btn btn-success">Actualizar</button>
-        <a th:href="@{/crud/persona/}" class="btn btn-secondary">Volver</a>
+        <div class="card-body">
+            <form th:action="@{/crud/bus/update}" th:object="${bus}" method="post">
 
-    </form>
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="form-group">
+                    <label for="patente">Patente</label>
+                    <input type="text" id="patente" th:field="*{patente}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="marca">Marca</label>
+                    <input type="text" id="marca" th:field="*{marca}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="km">Kilómetros</label>
+                    <input type="number" step="0.01" id="km" th:field="*{km}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="anio">Año</label>
+                    <input type="number" id="anio" th:field="*{anio}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="combustible">Combustible</label>
+                    <select id="combustible" th:field="*{combustible}" class="form-control" required>
+                        <option value="B">Bencina</option>
+                        <option value="D">Diésel</option>
+                        <option value="G">Gas</option>
+                        <option value="E">Eléctrico</option>
+                    </select>
+                </div>
+
+                <div class="form-group form-check">
+                    <input type="checkbox" id="revisionAlDia" th:field="*{revisionAlDia}" class="form-check-input">
+                    <label class="form-check-label" for="revisionAlDia">Revisión al día</label>
+                </div>
+
+                <button type="submit" class="btn btn-success">Actualizar</button>
+                <a th:href="@{/crud/bus/}" class="btn btn-secondary">Volver</a>
+
+            </form>
+        </div>
+    </div>
 
 </div>
 
