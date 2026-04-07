@@ -3,11 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Mantenedor Buses API REST</title>
-
+    <title>Mantenedor de Buses</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
 </head>
 
 <body>
@@ -16,108 +14,117 @@
 
     <h1 class="mb-4 text-center">Mantenedor de Buses</h1>
 
-    <!-- FORMULARIO CREAR -->
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
             Ingresar Bus
         </div>
 
         <div class="card-body">
-
-            <form th:action="@{/crud/persona/save}" th:object="${persona}" method="post">
-
-                <div class="form-group">
-                    <label>ID</label>
-                    <input type="number" th:field="*{id}" class="form-control" required>
-                </div>
+            <form th:action="@{/crud/bus/save}" th:object="${bus}" method="post">
 
                 <div class="form-group">
-                    <label>Patente</label>
-                    <input type="text" th:field="*{patente}" class="form-control" required>
+                    <label for="id">ID</label>
+                    <input type="number" id="id" th:field="*{id}" class="form-control" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Marca</label>
-                    <input type="text" th:field="*{marca}" class="form-control" required>
+                    <label for="patente">Patente</label>
+                    <input type="text" id="patente" th:field="*{patente}" class="form-control" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Kilometros</label>
-                    <input type="number" th:field="*{km}" class="form-control" required>
+                    <label for="marca">Marca</label>
+                    <input type="text" id="marca" th:field="*{marca}" class="form-control" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Año</label>
-                    <input type="number" th:field="*{anio}" class="form-control" required>
+                    <label for="km">Kilómetros</label>
+                    <input type="number" step="0.01" id="km" th:field="*{km}" class="form-control" required>
                 </div>
-                
+
                 <div class="form-group">
-                    <label>Nombre</label>
-                    <input type="text" th:field="*{nombre}" class="form-control" required>
+                    <label for="anio">Año</label>
+                    <input type="number" id="anio" th:field="*{anio}" class="form-control" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Nombre</label>
-                    <input type="text" th:field="*{nombre}" class="form-control" required>
+                    <label for="combustible">Combustible</label>
+                    <select id="combustible" th:field="*{combustible}" class="form-control" required>
+                        <option value="">Seleccione</option>
+                        <option value="B">Bencina</option>
+                        <option value="D">Diésel</option>
+                        <option value="G">Gas</option>
+                        <option value="E">Eléctrico</option>
+                    </select>
+                </div>
+
+                <div class="form-group form-check">
+                    <input type="checkbox" id="revisionAlDia" th:field="*{revisionAlDia}" class="form-check-input">
+                    <label class="form-check-label" for="revisionAlDia">Revisión al día</label>
                 </div>
 
                 <button type="submit" class="btn btn-success">Guardar</button>
                 <button type="reset" class="btn btn-secondary">Limpiar</button>
 
             </form>
-
         </div>
     </div>
 
-    <!-- TABLA -->
     <table class="table table-bordered table-striped">
-
         <thead class="thead-dark">
         <tr>
             <th>ID</th>
-            <th>NOMBRE</th>
+            <th>PATENTE</th>
+            <th>MARCA</th>
+            <th>KM</th>
+            <th>AÑO</th>
+            <th>COMBUSTIBLE</th>
+            <th>REVISIÓN AL DÍA</th>
             <th>FUNCIONES</th>
         </tr>
         </thead>
 
         <tbody>
-
-        <tr th:each="persona : ${personas}">
-
-            <td th:text="${persona.id}"></td>
-            <td th:text="${persona.nombre}"></td>
-
+        <tr th:each="bus : ${buses}">
+            <td th:text="${bus.id}"></td>
+            <td th:text="${bus.patente}"></td>
+            <td th:text="${bus.marca}"></td>
+            <td th:text="${bus.km}"></td>
+            <td th:text="${bus.anio}"></td>
+            <td th:text="${bus.combustible}"></td>
+            <td th:text="${bus.revisionAlDia ? 'Sí' : 'No'}"></td>
             <td>
-
-                <!-- VER -->
                 <a class="btn btn-info btn-sm"
-                   th:href="@{/crud/persona/ver/{id}(id=${persona.id})}">
+                   th:href="@{/crud/bus/ver/{id}(id=${bus.id})}">
                     Ver
                 </a>
 
-                <!-- EDITAR -->
                 <a class="btn btn-warning btn-sm"
-                   th:href="@{/crud/persona/edit/{id}(id=${persona.id})}">
+                   th:href="@{/crud/bus/edit/{id}(id=${bus.id})}">
                     Editar
                 </a>
 
-                <!-- ELIMINAR -->
                 <a class="btn btn-danger btn-sm"
-                   th:href="@{/crud/persona/del/{id}(id=${persona.id})}"
-                   onclick="confirm('¿Seguro que deseas eliminar esta persona?')">
+                   th:href="@{/crud/bus/del/{id}(id=${bus.id})}"
+                   onclick="return confirm('¿Seguro que deseas eliminar este bus?')">
                     Eliminar
                 </a>
-
             </td>
-
         </tr>
-
         </tbody>
 
         <tfoot>
         <tr>
             <th>ID</th>
-            <th>NOMBRE</th>
+            <th>PATENTE</th>
+            <th>MARCA</th>
+            <th>KM</th>
+            <th>AÑO</th>
+            <th>COMBUSTIBLE</th>
+            <th>REVISIÓN AL DÍA</th>
             <th>FUNCIONES</th>
         </tr>
         </tfoot>
-
     </table>
 
 </div>
