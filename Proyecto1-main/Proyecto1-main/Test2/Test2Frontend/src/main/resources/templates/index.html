@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenedor Persona API REST</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <h1 class="mb-4 text-center">Mantenedor de Personas</h1>
+
+    <!-- FORMULARIO CREAR -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            Ingresar Persona
+        </div>
+
+        <div class="card-body">
+
+            <form th:action="@{/crud/persona/save}" th:object="${persona}" method="post">
+
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="number" th:field="*{id}" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" th:field="*{nombre}" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="reset" class="btn btn-secondary">Limpiar</button>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- TABLA -->
+    <table class="table table-bordered table-striped">
+
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>FUNCIONES</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="persona : ${personas}">
+
+            <td th:text="${persona.id}"></td>
+            <td th:text="${persona.nombre}"></td>
+
+            <td>
+
+                <!-- VER -->
+                <a class="btn btn-info btn-sm"
+                   th:href="@{/crud/persona/ver/{id}(id=${persona.id})}">
+                    Ver
+                </a>
+
+                <!-- EDITAR -->
+                <a class="btn btn-warning btn-sm"
+                   th:href="@{/crud/persona/edit/{id}(id=${persona.id})}">
+                    Editar
+                </a>
+
+                <!-- ELIMINAR -->
+                <a class="btn btn-danger btn-sm"
+                   th:href="@{/crud/persona/del/{id}(id=${persona.id})}"
+                   onclick="confirm('¿Seguro que deseas eliminar esta persona?')">
+                    Eliminar
+                </a>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>FUNCIONES</th>
+        </tr>
+        </tfoot>
+
+    </table>
+
+</div>
+
+</body>
+</html>

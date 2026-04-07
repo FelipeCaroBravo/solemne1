@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+
+  postgres-db6:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: postgres-db6
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: Test1
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  test1:
+    build:
+      context: ./Test1/Test1
+      dockerfile: Dockerfile
+    container_name: spring-app-1
+    ports:
+      - "8886:8886"
+    depends_on:
+      - postgres-db6
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db6:5432/Test1
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+    networks:
+      - app-network
+
+  test2frontend:
+    build:
+      context: ./Test2/Test2Frontend
+      dockerfile: Dockerfile
+    container_name: spring-app-2
+    ports:
+      - "9996:9996"
+    depends_on:
+      - postgres-db6
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:

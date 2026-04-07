@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Persona</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <h2>Editar Persona</h2>
+
+    <form th:action="@{/crud/persona/update}" th:object="${persona}" method="post">
+
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" th:field="*{nombre}" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <a th:href="@{/crud/persona/}" class="btn btn-secondary">Volver</a>
+
+    </form>
+
+</div>
+
+</body>
+</html>
